@@ -12,7 +12,8 @@
   "scripts": {
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "clean": "rimraf dist .turbo"
+    "clean": "rimraf dist .turbo",
+    "gen:types": "supabase gen types typescript --linked --schema public > src/supabase.generated.ts"
   },
   "devDependencies": {
     "@freightflow/config": "workspace:*",
