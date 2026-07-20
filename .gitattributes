@@ -1,0 +1,25 @@
+# Normalize line endings across platforms.
+* text=auto eol=lf
+
+# Enforce LF for these text formats regardless of platform.
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.mjs text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.css text eol=lf
+
+# Treat lockfiles as generated in diffs.
+pnpm-lock.yaml linguist-generated=true -diff
+
+# Binary assets.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary

@@ -1,0 +1,15 @@
+{
+  "extends": "@freightflow/config/tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["DOM", "ESNext"],
+    "jsx": "react-native",
+    "moduleResolution": "Bundler",
+    "noEmit": true,
+    "allowJs": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],
+  "exclude": ["node_modules"]
+}

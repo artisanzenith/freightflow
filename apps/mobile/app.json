@@ -1,0 +1,26 @@
+{
+  "expo": {
+    "name": "FreightFlow",
+    "slug": "freightflow",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "freightflow",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.freightflow.app"
+    },
+    "android": {
+      "package": "com.freightflow.app"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static"
+    },
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
