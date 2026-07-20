@@ -1,29 +1,10 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Redirect } from 'expo-router';
 
-export default function HomeScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>FreightFlow</Text>
-      <Text style={styles.subtitle}>Foundation ready. Driver features arrive in later phases.</Text>
-    </View>
-  );
+/**
+ * Entry route. Sends users into the driver app's default tab. When
+ * authentication is added, this is where the signed-in/signed-out branch will
+ * live (redirecting to a login flow when there is no session).
+ */
+export default function Index() {
+  return <Redirect href="/loads" />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 24,
-    gap: 8,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: '700',
-  },
-  subtitle: {
-    fontSize: 15,
-    color: '#4b5563',
-    textAlign: 'center',
-  },
-});
