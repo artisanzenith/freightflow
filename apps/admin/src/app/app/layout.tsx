@@ -1,28 +1,17 @@
-import { Logo } from '@freightflow/ui';
-
-import { requireUser } from '@/lib/auth/session';
-import { LogoutButton } from '@/components/auth/LogoutButton';
+import { requireAppUser } from '@/lib/auth/user';
+import { AppShell } from '@/components/app/AppShell';
 
 /**
- * Layout for the authenticated application area. Guards every child route:
- * unauthenticated requests are redirected to /login (defense in depth on top of
- * the middleware). The full dashboard shell is built in a later phase.
+ * Layout for the authenticated application area. Guards every child route
+ * (redirects unauthenticated users to /login — defense in depth on top of the
+ * middleware) and wraps content in the role-aware application shell.
  */
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
-  const user = await requireUser('/app');
+  const user = await requireAppUser('/app');
 
   return (
-    <div className="min-h-screen bg-neutral-50">
-      <header className="border-b border-neutral-200 bg-white">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Logo />
-          <div className="flex items-center gap-4">
-            <span className="hidden text-sm text-neutral-600 sm:inline">{user.email}</span>
-            <LogoutButton />
-          </div>
-        </div>
-      </header>
-      <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">{children}</main>
-    </div>
+    <AppShell role={user.role} fullName={user.fullName} email={user.email}>
+      {children}
+    </AppShell>
   );
 }
