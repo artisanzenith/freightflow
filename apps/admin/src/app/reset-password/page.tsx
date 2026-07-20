@@ -1,14 +1,9 @@
-'use client';
-
 import Link from 'next/link';
-import { Button, FormField, Input } from '@freightflow/ui';
 
 import { AuthShell } from '@/components/auth/AuthShell';
+import { ResetPasswordForm } from '@/components/auth/ResetPasswordForm';
 
-/**
- * Password reset request page — UI only. No email is sent yet; the reset flow
- * is wired up in a later phase.
- */
+/** Password-reset request page. Sends a recovery email via Supabase. */
 export default function ResetPasswordPage() {
   return (
     <AuthShell
@@ -23,27 +18,7 @@ export default function ResetPasswordPage() {
         </>
       }
     >
-      <form
-        className="space-y-5"
-        onSubmit={(e) => e.preventDefault()}
-        aria-label="Reset password"
-      >
-        <FormField label="Email" required>
-          {(field) => (
-            <Input
-              {...field}
-              type="email"
-              name="email"
-              autoComplete="email"
-              placeholder="you@company.com"
-            />
-          )}
-        </FormField>
-
-        <Button type="submit" fullWidth size="lg">
-          Send reset link
-        </Button>
-      </form>
+      <ResetPasswordForm />
     </AuthShell>
   );
 }

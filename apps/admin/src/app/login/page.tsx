@@ -1,13 +1,13 @@
-'use client';
-
+import { Suspense } from 'react';
 import Link from 'next/link';
-import { Button, FormField, Input } from '@freightflow/ui';
 
 import { AuthShell } from '@/components/auth/AuthShell';
+import { LoginForm } from '@/components/auth/LoginForm';
 
 /**
- * Login page — UI only. The form does not submit anywhere yet; authentication
- * is wired up in a later phase.
+ * Login page. The form itself is a client component (it reads the `redirectTo`
+ * query param and manages action state), wrapped in Suspense as required by
+ * `useSearchParams`.
  */
 export default function LoginPage() {
   return (
@@ -23,56 +23,9 @@ export default function LoginPage() {
         </>
       }
     >
-      <form
-        className="space-y-5"
-        onSubmit={(e) => e.preventDefault()}
-        aria-label="Log in"
-      >
-        <FormField label="Email" required>
-          {(field) => (
-            <Input
-              {...field}
-              type="email"
-              name="email"
-              autoComplete="email"
-              placeholder="you@company.com"
-            />
-          )}
-        </FormField>
-
-        <FormField label="Password" required>
-          {(field) => (
-            <Input
-              {...field}
-              type="password"
-              name="password"
-              autoComplete="current-password"
-              placeholder="••••••••"
-            />
-          )}
-        </FormField>
-
-        <div className="flex items-center justify-between">
-          <label className="flex items-center gap-2 text-sm text-neutral-600">
-            <input
-              type="checkbox"
-              name="remember"
-              className="h-4 w-4 rounded border-neutral-300 text-brand-600 focus:ring-brand-500"
-            />
-            Remember me
-          </label>
-          <Link
-            href="/reset-password"
-            className="text-sm font-medium text-brand-600 hover:text-brand-700"
-          >
-            Forgot password?
-          </Link>
-        </div>
-
-        <Button type="submit" fullWidth size="lg">
-          Log in
-        </Button>
-      </form>
+      <Suspense fallback={null}>
+        <LoginForm />
+      </Suspense>
     </AuthShell>
   );
 }
