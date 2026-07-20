@@ -6,5 +6,5 @@ import { Redirect } from 'expo-router';
  * live (redirecting to a login flow when there is no session).
  */
 export default function Index() {
-  return <Redirect href="/loads" />;
+  return <Redirect href="/home" />;
 }

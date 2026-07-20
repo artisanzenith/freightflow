@@ -1,29 +1,38 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 
-import { colors } from '../../src/theme';
+import { dark } from '../../src/theme';
 
 /**
- * Driver app tab navigation. The mobile experience is focused on the tasks a
- * driver performs in the field, so it surfaces a subset of the platform's
- * sections as bottom tabs; less-frequent areas live under "More".
+ * Driver app tab navigation. Five primary tabs matching the driver's core
+ * workflow: Home (availability + live dispatch search), Loads (offers), Trip
+ * (current load), Messages, and Profile. Legacy placeholder routes are kept in
+ * the group but hidden from the tab bar via `href: null`.
  *
- * This is navigation scaffolding only — screens render placeholders.
+ * Premium dark theme — deep navy tab bar with blue active accents.
  */
 export default function AppTabsLayout() {
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: colors.brand,
-        tabBarInactiveTintColor: colors.neutral400,
+        tabBarActiveTintColor: dark.brandBright,
+        tabBarInactiveTintColor: dark.textSubtle,
         tabBarStyle: {
-          backgroundColor: colors.white,
-          borderTopColor: colors.neutral200,
+          backgroundColor: dark.surface,
+          borderTopColor: dark.border,
+          borderTopWidth: 1,
         },
         tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
       }}
     >
+      <Tabs.Screen
+        name="home"
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ color, size }) => <Ionicons name="home" color={color} size={size} />,
+        }}
+      />
       <Tabs.Screen
         name="loads"
         options={{
@@ -32,12 +41,10 @@ export default function AppTabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="documents"
+        name="trip"
         options={{
-          title: 'Documents',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="document-text" color={color} size={size} />
-          ),
+          title: 'Trip',
+          tabBarIcon: ({ color, size }) => <Ionicons name="navigate" color={color} size={size} />,
         }}
       />
       <Tabs.Screen
@@ -50,23 +57,13 @@ export default function AppTabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="notifications"
+        name="profile"
         options={{
-          title: 'Alerts',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="notifications" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="more"
-        options={{
-          title: 'More',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="ellipsis-horizontal" color={color} size={size} />
-          ),
+          title: 'Profile',
+          tabBarIcon: ({ color, size }) => <Ionicons name="person" color={color} size={size} />,
         }}
       />
     </Tabs>
+
   );
 }
