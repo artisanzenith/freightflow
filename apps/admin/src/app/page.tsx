@@ -1,10 +1,29 @@
+import { CtaSection } from '@/components/marketing/CtaSection';
+import { Faq } from '@/components/marketing/Faq';
+import { Features } from '@/components/marketing/Features';
+import { Hero } from '@/components/marketing/Hero';
+import { Pricing } from '@/components/marketing/Pricing';
+import { SiteFooter } from '@/components/marketing/SiteFooter';
+import { SiteHeader } from '@/components/marketing/SiteHeader';
+import { Testimonials } from '@/components/marketing/Testimonials';
+
+/**
+ * Marketing landing page. Content is driven by `@/config/site` and
+ * `@/config/pricing`; sections are composed here.
+ */
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-4 p-8">
-      <h1 className="text-3xl font-bold">FreightFlow Admin</h1>
-      <p className="text-gray-600">
-        Foundation ready. Dispatch operations portal — features arrive in later phases.
-      </p>
-    </main>
+    <>
+      <SiteHeader />
+      <main id="main">
+        <Hero />
+        <Features />
+        <Pricing />
+        <Testimonials />
+        <Faq />
+        <CtaSection />
+      </main>
+      <SiteFooter />
+    </>
   );
 }
