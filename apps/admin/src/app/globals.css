@@ -23,3 +23,88 @@
     @apply outline-none;
   }
 }
+
+@layer utilities {
+  /* Dispatch dashboard motion. Respects reduced-motion preferences below. */
+  @keyframes ff-pulse-ring {
+    0% {
+      transform: scale(0.85);
+      opacity: 0.6;
+    }
+    70% {
+      transform: scale(1.6);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1.6);
+      opacity: 0;
+    }
+  }
+
+  @keyframes ff-shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes ff-scan {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(300%);
+    }
+  }
+
+  @keyframes ff-fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: ff-fade-in-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* Subtle dot grid used on dark hero surfaces. */
+  .bg-grid-navy {
+    background-image: radial-gradient(rgb(255 255 255 / 0.08) 1px, transparent 1px);
+  }
+
+  .animate-pulse-ring {
+    animation: ff-pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-scan {
+    animation: ff-scan 2.4s ease-in-out infinite;
+  }
+
+  .ff-shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgb(255 255 255 / 0.35),
+      transparent
+    );
+    animation: ff-shimmer 1.8s infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse-ring,
+  .animate-scan,
+  .ff-shimmer::after {
+    animation: none !important;
+  }
+}
+
+
