@@ -94,7 +94,49 @@ export async function signUp(
   redirect(`/verify-email?email=${encodeURIComponent(email)}`);
 }
 
+// --- Resend verification email ----------------------------------------------
+
+export async function resendVerification(
+  _prevState: AuthFormState,
+  formData: FormData,
+): Promise<AuthFormState> {
+  const parsed = resetPasswordRequestSchema.safeParse({
+    email: formData.get('email'),
+  });
+
+  if (!parsed.success) {
+    return { ok: false, fieldErrors: toFieldErrors(parsed.error.issues) };
+  }
+
+  const supabase = await createClient();
+  const { error } = await supabase.auth.resend({
+    type: 'signup',
+    email: parsed.data.email,
+    options: {
+      emailRedirectTo: `${siteUrl}/auth/callback?next=/app`,
+    },
+  });
+
+  if (error) {
+    // Supabase throttles resends; surface a friendly, actionable message.
+    const isRateLimited =
+      error.status === 429 || /rate limit|too many|for security/i.test(error.message);
+    return {
+      ok: false,
+      formError: isRateLimited
+        ? 'You’ve requested this too many times. Please wait a moment before trying again.'
+        : 'We couldn’t resend the email right now. Please try again shortly.',
+    };
+  }
+
+  return {
+    ok: true,
+    message: 'Verification email sent. Check your inbox (and spam folder).',
+  };
+}
+
 // --- Sign in ----------------------------------------------------------------
+
 
 export async function signIn(
   _prevState: AuthFormState,

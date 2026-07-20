@@ -11,7 +11,14 @@ interface CookieToSet {
 
 
 /** Routes that make up the authentication surface (unauthenticated area). */
-const AUTH_ROUTES = ['/login', '/register', '/reset-password', '/update-password'];
+const AUTH_ROUTES = [
+  '/login',
+  '/register',
+  '/reset-password',
+  '/update-password',
+  '/verify-email',
+];
+
 
 /** Public routes that never require a session. */
 const PUBLIC_ROUTES = ['/', '/auth'];
