@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-navy-900 antialiased;
+    font-feature-settings:
+      'cv11',
+      'ss01';
+  }
+
+  /* Consistent focus outline for keyboard users across the app. */
+  :focus-visible {
+    @apply outline-none;
+  }
+}
