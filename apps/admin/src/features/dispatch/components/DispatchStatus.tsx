@@ -27,15 +27,15 @@ export function DispatchStatus() {
     <section
       aria-label="Dispatch search status"
       aria-live="polite"
-      className="relative overflow-hidden rounded-3xl border border-neutral-200 bg-white p-6 shadow-lg sm:p-8"
+      className="relative overflow-hidden rounded-3xl border border-white/10 bg-navy-900 p-6 sm:p-8"
     >
       <div className="flex items-center gap-3">
-        <RadarIcon className="h-6 w-6 text-brand-600" />
+        <RadarIcon className="h-6 w-6 text-brand-400" />
         <div>
-          <h3 className="text-lg font-bold tracking-tight text-navy-900">
+          <h3 className="text-lg font-bold tracking-tight text-white">
             Searching for your next load
           </h3>
-          <p className="text-sm text-neutral-500">
+          <p className="text-sm text-neutral-400">
             Our dispatch team is scanning every source in real time.
           </p>
         </div>
@@ -51,15 +51,15 @@ export function DispatchStatus() {
               className={cn(
                 'relative flex items-center gap-3 overflow-hidden rounded-2xl border px-4 py-3 transition-all duration-500',
                 isActive
-                  ? 'border-brand-200 bg-brand-50 ff-shimmer'
-                  : 'border-neutral-200 bg-neutral-50',
+                  ? 'border-brand-400/40 bg-brand-500/15 ff-shimmer'
+                  : 'border-white/10 bg-white/5',
               )}
             >
               <SourceIndicator active={isActive} done={isDone} />
               <span
                 className={cn(
                   'text-sm font-medium transition-colors',
-                  isActive ? 'text-brand-800' : 'text-neutral-600',
+                  isActive ? 'text-brand-100' : 'text-neutral-400',
                 )}
               >
                 {source.searchingLabel}
@@ -98,7 +98,7 @@ function SourceIndicator({ active, done }: { active: boolean; done: boolean }) {
       <span
         className={cn(
           'relative inline-flex h-2.5 w-2.5 rounded-full',
-          active ? 'bg-brand-500' : 'bg-neutral-300',
+          active ? 'bg-brand-400' : 'bg-neutral-600',
         )}
       />
     </span>

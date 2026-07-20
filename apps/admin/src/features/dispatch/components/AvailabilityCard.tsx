@@ -18,9 +18,8 @@ export interface AvailabilityCardProps {
 
 /**
  * The hero status card and primary action of the application. A large, premium
- * surface that flips between a calm "offline" state and an energized "online"
- * state. The Available for Loads switch is the single most important control
- * on the dashboard.
+ * dark surface that intensifies when the operator goes online. The Available
+ * for Loads switch is the single most important control on the dashboard.
  */
 export function AvailabilityCard({
   isOnline,
@@ -47,8 +46,8 @@ export function AvailabilityCard({
       className={cn(
         'relative overflow-hidden rounded-3xl border p-6 transition-all duration-500 sm:p-8',
         isOnline
-          ? 'border-transparent bg-navy-900 text-white shadow-glow'
-          : 'border-neutral-200 bg-white text-navy-900 shadow-lg',
+          ? 'border-brand-400/30 bg-gradient-to-br from-navy-800 to-navy-900 shadow-glow'
+          : 'border-white/10 bg-navy-900',
       )}
     >
       {/* Ambient background flourish when online */}
@@ -68,7 +67,7 @@ export function AvailabilityCard({
               <span
                 className={cn(
                   'text-xs font-semibold uppercase tracking-widest',
-                  isOnline ? 'text-brand-200' : 'text-neutral-500',
+                  isOnline ? 'text-brand-200' : 'text-neutral-400',
                 )}
               >
                 {isOnline ? 'Online' : 'Offline'}
@@ -76,11 +75,11 @@ export function AvailabilityCard({
             </div>
             <h2
               id={`${switchId}-title`}
-              className="text-2xl font-bold tracking-tight sm:text-3xl"
+              className="text-2xl font-bold tracking-tight text-white sm:text-3xl"
             >
               Available for Loads
             </h2>
-            <p className={cn('text-sm', isOnline ? 'text-navy-100' : 'text-neutral-600')}>
+            <p className={cn('text-sm', isOnline ? 'text-navy-100' : 'text-neutral-400')}>
               {isOnline
                 ? 'Your truck is live. Our dispatch team is finding your next load.'
                 : 'Flip the switch and our dispatch team takes it from here.'}
@@ -91,30 +90,17 @@ export function AvailabilityCard({
         </div>
 
         {/* Location controls */}
-        <div
-          className={cn(
-            'rounded-2xl border p-4 transition-colors',
-            isOnline ? 'border-white/10 bg-white/5' : 'border-neutral-200 bg-neutral-50',
-          )}
-        >
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
           <div className="flex items-center justify-between gap-3">
             <div className="flex min-w-0 items-center gap-3">
               <span
                 aria-hidden
-                className={cn(
-                  'flex h-10 w-10 shrink-0 items-center justify-center rounded-xl',
-                  isOnline ? 'bg-white/10 text-brand-200' : 'bg-brand-50 text-brand-600',
-                )}
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-500/20 text-brand-200"
               >
                 <PinIcon className="h-5 w-5" />
               </span>
               <div className="min-w-0">
-                <p
-                  className={cn(
-                    'text-xs font-medium uppercase tracking-wide',
-                    isOnline ? 'text-navy-200' : 'text-neutral-500',
-                  )}
-                >
+                <p className="text-xs font-medium uppercase tracking-wide text-navy-200">
                   Search origin · {location.mode === 'gps' ? 'Live GPS' : 'Manual'}
                 </p>
                 {editingLocation ? (
@@ -129,12 +115,7 @@ export function AvailabilityCard({
                       }}
                       placeholder="City, ST"
                       aria-label="Enter location"
-                      className={cn(
-                        'w-40 rounded-lg border px-2 py-1 text-sm outline-none focus:ring-2 focus:ring-brand-500',
-                        isOnline
-                          ? 'border-white/20 bg-navy-800 text-white placeholder:text-navy-300'
-                          : 'border-neutral-300 bg-white text-navy-900',
-                      )}
+                      className="w-40 rounded-lg border border-white/20 bg-navy-800 px-2 py-1 text-sm text-white outline-none placeholder:text-navy-300 focus:ring-2 focus:ring-brand-500"
                     />
                     <button
                       type="button"
@@ -145,19 +126,18 @@ export function AvailabilityCard({
                     </button>
                   </div>
                 ) : (
-                  <p className="truncate text-base font-semibold">{location.label}</p>
+                  <p className="truncate text-base font-semibold text-white">{location.label}</p>
                 )}
               </div>
             </div>
           </div>
 
           <div className="mt-4 flex flex-wrap gap-2">
-            <LocationButton online={isOnline} onClick={onUseGps} disabled={gpsPending}>
+            <LocationButton onClick={onUseGps} disabled={gpsPending}>
               <GpsIcon className="h-4 w-4" />
               {gpsPending ? 'Locating…' : 'Use live GPS'}
             </LocationButton>
             <LocationButton
-              online={isOnline}
               onClick={() => {
                 setDraftLocation(location.label);
                 setEditingLocation(true);
@@ -169,7 +149,7 @@ export function AvailabilityCard({
           </div>
 
           {gpsError && (
-            <p className="mt-2 text-xs font-medium text-danger" role="alert">
+            <p className="mt-2 text-xs font-medium text-red-400" role="alert">
               {gpsError}
             </p>
           )}
@@ -188,7 +168,7 @@ function StatusDot({ online }: { online: boolean }) {
       <span
         className={cn(
           'relative inline-flex h-2.5 w-2.5 rounded-full',
-          online ? 'bg-green-400' : 'bg-neutral-300',
+          online ? 'bg-green-400' : 'bg-neutral-500',
         )}
       />
     </span>
@@ -213,8 +193,8 @@ function AvailabilitySwitch({
       aria-label="Available for Loads"
       onClick={onChange}
       className={cn(
-        'relative inline-flex h-9 w-16 shrink-0 items-center rounded-full transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2',
-        checked ? 'bg-green-500 focus-visible:ring-offset-navy-900' : 'bg-neutral-300',
+        'relative inline-flex h-9 w-16 shrink-0 items-center rounded-full transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900',
+        checked ? 'bg-green-500 focus-visible:ring-green-400' : 'bg-neutral-600 focus-visible:ring-brand-400',
       )}
     >
       <span
@@ -228,19 +208,13 @@ function AvailabilitySwitch({
 }
 
 function LocationButton({
-  online,
   children,
   ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & { online: boolean }) {
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
       type="button"
-      className={cn(
-        'inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors disabled:opacity-50',
-        online
-          ? 'bg-white/10 text-white hover:bg-white/20'
-          : 'bg-white text-navy-900 ring-1 ring-inset ring-neutral-300 hover:bg-neutral-100',
-      )}
+      className="inline-flex items-center gap-1.5 rounded-lg bg-white/10 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-white/20 disabled:opacity-50"
       {...props}
     >
       {children}

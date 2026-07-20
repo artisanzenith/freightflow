@@ -20,12 +20,13 @@ export function LoadOffersSection({ offers, onAccept, onSkip }: LoadOffersSectio
     <section aria-label="Load offers" className="space-y-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <h3 className="text-lg font-bold tracking-tight text-navy-900">Loads for you</h3>
+          <h3 className="text-lg font-bold tracking-tight text-white">Loads for you</h3>
           <Badge variant="success">
             {offers.length} {offers.length === 1 ? 'offer' : 'offers'}
           </Badge>
         </div>
-        <p className="hidden text-sm text-neutral-500 sm:block">
+        <p className="hidden text-sm text-neutral-400 sm:block">
+
           Accept one — skipping keeps your dispatcher searching.
         </p>
       </div>

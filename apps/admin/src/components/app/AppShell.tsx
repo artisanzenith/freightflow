@@ -26,8 +26,8 @@ function initialsFrom(fullName: string | null, email: string): string {
 
 /**
  * Authenticated application shell: fixed sidebar on desktop, slide-over drawer
- * on mobile, and a sticky top bar. Purely presentational scaffolding — no
- * business data is loaded here.
+ * on mobile, and a sticky top bar. Dark, premium SaaS surface — deep navy
+ * background with blue accents. Purely presentational scaffolding.
  */
 export function AppShell({ role, fullName, email, children }: AppShellProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -42,12 +42,12 @@ export function AppShell({ role, fullName, email, children }: AppShellProps) {
   const displayName = fullName?.trim() || email;
 
   return (
-    <div className="min-h-screen bg-neutral-50">
+    <div className="min-h-screen bg-navy-950 text-white">
       {/* Desktop sidebar */}
-      <aside className="fixed inset-y-0 left-0 hidden w-64 flex-col border-r border-neutral-200 bg-white lg:flex">
-        <div className="flex h-16 items-center border-b border-neutral-200 px-6">
+      <aside className="fixed inset-y-0 left-0 hidden w-64 flex-col border-r border-white/10 bg-navy-900 lg:flex">
+        <div className="flex h-16 items-center border-b border-white/10 px-6">
           <Link href="/app" aria-label="FreightFlow home">
-            <Logo />
+            <Logo variant="light" />
           </Link>
         </div>
         <div className="flex-1 overflow-y-auto px-4 py-6">
@@ -59,19 +59,19 @@ export function AppShell({ role, fullName, email, children }: AppShellProps) {
       {drawerOpen && (
         <div className="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal="true">
           <div
-            className="absolute inset-0 bg-navy-900/40"
+            className="absolute inset-0 bg-black/60"
             onClick={() => setDrawerOpen(false)}
             aria-hidden
           />
-          <aside className="absolute inset-y-0 left-0 flex w-72 max-w-[80%] flex-col bg-white shadow-xl">
-            <div className="flex h-16 items-center justify-between border-b border-neutral-200 px-6">
+          <aside className="absolute inset-y-0 left-0 flex w-72 max-w-[80%] flex-col bg-navy-900 shadow-xl">
+            <div className="flex h-16 items-center justify-between border-b border-white/10 px-6">
               <Link href="/app" aria-label="FreightFlow home">
-                <Logo />
+                <Logo variant="light" />
               </Link>
               <button
                 type="button"
                 onClick={() => setDrawerOpen(false)}
-                className="rounded-md p-1 text-neutral-500 hover:bg-neutral-100"
+                className="rounded-md p-1 text-neutral-400 hover:bg-white/10 hover:text-white"
                 aria-label="Close menu"
               >
                 <svg
@@ -95,11 +95,11 @@ export function AppShell({ role, fullName, email, children }: AppShellProps) {
 
       {/* Main column */}
       <div className="lg:pl-64">
-        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-neutral-200 bg-white/95 px-4 backdrop-blur sm:px-6">
+        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-white/10 bg-navy-900/80 px-4 backdrop-blur sm:px-6">
           <button
             type="button"
             onClick={() => setDrawerOpen(true)}
-            className="rounded-md p-1 text-neutral-600 hover:bg-neutral-100 lg:hidden"
+            className="rounded-md p-1 text-neutral-300 hover:bg-white/10 lg:hidden"
             aria-label="Open menu"
           >
             <svg
@@ -115,18 +115,20 @@ export function AppShell({ role, fullName, email, children }: AppShellProps) {
           </button>
 
           <div className="lg:hidden">
-            <Logo markOnly />
+            <Logo markOnly variant="light" />
           </div>
 
           <div className="ml-auto flex items-center gap-3">
             <div className="hidden items-center gap-2 sm:flex">
-              <span className="text-sm font-semibold text-navy-900">{displayName}</span>
-              <Badge variant="neutral">{roleLabel(role)}</Badge>
+              <span className="text-sm font-semibold text-white">{displayName}</span>
+              <Badge variant="outline" className="border-white/20 text-neutral-200">
+                {roleLabel(role)}
+              </Badge>
             </div>
             <span
               className={cn(
                 'flex h-9 w-9 items-center justify-center rounded-full',
-                'bg-brand-100 text-sm font-semibold text-brand-700',
+                'bg-brand-500/20 text-sm font-semibold text-brand-200 ring-1 ring-inset ring-brand-400/30',
               )}
               aria-hidden
             >

@@ -57,10 +57,11 @@ export function DispatchDashboard({ greetingName }: DispatchDashboardProps) {
   return (
     <div className="space-y-8">
       <header className="space-y-1">
-        <h1 className="text-2xl font-bold tracking-tight text-navy-900 sm:text-3xl">
+        <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
           {greetingName ? `Hey, ${greetingName}` : 'Your dispatch'}
         </h1>
-        <p className="text-neutral-600">
+        <p className="text-neutral-400">
+
           Turn on Available for Loads — our dispatch team handles the rest.
         </p>
       </header>

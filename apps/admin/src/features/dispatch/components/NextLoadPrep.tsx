@@ -24,20 +24,21 @@ export function NextLoadPrep({ destinationCity, destinationState }: NextLoadPrep
   return (
     <section
       aria-label="Next load preparation"
-      className="rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm sm:p-8"
+      className="rounded-3xl border border-white/10 bg-navy-900 p-6 shadow-sm sm:p-8"
     >
       <div className="flex items-center gap-3">
         <span
           aria-hidden
-          className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600"
+          className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-500/20 text-brand-300"
         >
           <CompassIcon className="h-5 w-5" />
         </span>
         <div>
-          <h3 className="text-lg font-bold tracking-tight text-navy-900">
+          <h3 className="text-lg font-bold tracking-tight text-white">
             Preparing your next load
           </h3>
-          <p className="text-sm text-neutral-500">
+          <p className="text-sm text-neutral-400">
+
             Near {destinationCity}, {destinationState} — ready before you deliver.
           </p>
         </div>
@@ -51,13 +52,14 @@ export function NextLoadPrep({ destinationCity, destinationState }: NextLoadPrep
               <p
                 className={cn(
                   'text-sm font-medium',
-                  step.state === 'pending' ? 'text-neutral-400' : 'text-navy-900',
+                  step.state === 'pending' ? 'text-neutral-500' : 'text-white',
                 )}
               >
                 {step.label}
               </p>
               {step.state === 'active' && (
-                <div className="mt-2 h-1.5 w-40 max-w-full overflow-hidden rounded-full bg-neutral-100">
+                <div className="mt-2 h-1.5 w-40 max-w-full overflow-hidden rounded-full bg-white/10">
+
                   <div className="h-full w-1/2 rounded-full bg-brand-500 ff-shimmer relative" />
                 </div>
               )}
@@ -83,8 +85,9 @@ function StepMarker({
         className={cn(
           'flex h-6 w-6 items-center justify-center rounded-full',
           state === 'done' && 'bg-success text-white',
-          state === 'active' && 'bg-brand-100 text-brand-700',
-          state === 'pending' && 'bg-neutral-100 text-neutral-400',
+          state === 'active' && 'bg-brand-500/20 text-brand-200',
+          state === 'pending' && 'bg-white/10 text-neutral-500',
+
         )}
       >
         {state === 'done' ? (
@@ -104,7 +107,8 @@ function StepMarker({
           <span className="h-2 w-2 rounded-full bg-current" />
         )}
       </span>
-      {!last && <span className="mt-1 h-6 w-px bg-neutral-200" aria-hidden />}
+      {!last && <span className="mt-1 h-6 w-px bg-white/15" aria-hidden />}
+
     </div>
   );
 }

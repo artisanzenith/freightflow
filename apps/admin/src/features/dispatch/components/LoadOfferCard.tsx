@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Badge, Button, cn } from '@freightflow/ui';
+import { Badge, cn } from '@freightflow/ui';
+
 
 import type { LoadOffer } from '../types';
 import { sourceByKey } from '../sources';
@@ -38,10 +39,11 @@ export function LoadOfferCard({ offer, onAccept, onSkip }: LoadOfferCardProps) {
   return (
     <article
       className={cn(
-        'group relative overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-sm transition-all duration-300 hover:shadow-lg',
+        'group relative overflow-hidden rounded-3xl border border-white/10 bg-navy-900 shadow-sm transition-all duration-300 hover:border-brand-400/30 hover:shadow-glow',
         dismissing ? 'scale-[0.98] opacity-0' : 'animate-fade-in-up opacity-100',
       )}
     >
+
       {/* Accent rail */}
       <div className="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-brand-500 to-brand-700" />
 
@@ -54,23 +56,24 @@ export function LoadOfferCard({ offer, onAccept, onSkip }: LoadOfferCardProps) {
                 {source.label}
               </Badge>
             )}
-            <div className="flex items-center gap-2 text-lg font-bold tracking-tight text-navy-900">
+            <div className="flex items-center gap-2 text-lg font-bold tracking-tight text-white">
               <span className="truncate">{formatPlace(offer.originCity, offer.originState)}</span>
-              <ArrowIcon className="h-4 w-4 shrink-0 text-brand-500" />
+              <ArrowIcon className="h-4 w-4 shrink-0 text-brand-400" />
               <span className="truncate">{formatPlace(offer.destCity, offer.destState)}</span>
             </div>
           </div>
 
           {/* Money block */}
           <div className="shrink-0 text-right">
-            <p className="text-2xl font-extrabold tracking-tight text-navy-900">
+            <p className="text-2xl font-extrabold tracking-tight text-white">
               {formatCurrency(offer.totalRate)}
             </p>
-            <p className="text-sm font-semibold text-brand-600">
+            <p className="text-sm font-semibold text-brand-300">
               {ratePerMile(offer)}
-              <span className="text-neutral-400"> /mi</span>
+              <span className="text-neutral-500"> /mi</span>
             </p>
           </div>
+
         </div>
 
         {/* Appointments */}
@@ -90,7 +93,8 @@ export function LoadOfferCard({ offer, onAccept, onSkip }: LoadOfferCardProps) {
         </div>
 
         {/* Stats */}
-        <dl className="mt-5 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-neutral-100 pt-4 sm:grid-cols-4">
+        <dl className="mt-5 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-white/10 pt-4 sm:grid-cols-4">
+
           <Stat label="Loaded" value={formatMiles(offer.loadedMiles)} />
           <Stat label="Deadhead" value={formatMiles(offer.deadheadMiles)} />
           <Stat label="Weight" value={formatWeight(offer.weightLbs)} />
@@ -99,30 +103,40 @@ export function LoadOfferCard({ offer, onAccept, onSkip }: LoadOfferCardProps) {
 
         {/* Broker + notes */}
         {(offer.brokerName || offer.dispatcherNotes) && (
-          <div className="mt-4 space-y-2 rounded-2xl bg-neutral-50 p-4">
+          <div className="mt-4 space-y-2 rounded-2xl bg-white/5 p-4">
             {offer.brokerName && (
-              <p className="text-sm text-neutral-600">
-                <span className="font-medium text-navy-900">Broker:</span> {offer.brokerName}
+              <p className="text-sm text-neutral-300">
+                <span className="font-medium text-white">Broker:</span> {offer.brokerName}
               </p>
             )}
             {offer.dispatcherNotes && (
-              <p className="flex gap-2 text-sm text-neutral-600">
-                <NoteIcon className="mt-0.5 h-4 w-4 shrink-0 text-brand-500" />
+              <p className="flex gap-2 text-sm text-neutral-300">
+                <NoteIcon className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" />
                 <span>{offer.dispatcherNotes}</span>
               </p>
             )}
           </div>
+
         )}
 
         {/* Actions */}
         <div className="mt-5 flex flex-col-reverse gap-2 sm:flex-row">
-          <Button variant="outline" fullWidth onClick={handleSkip}>
+          <button
+            type="button"
+            onClick={handleSkip}
+            className="w-full rounded-xl border border-white/20 px-4 py-2.5 text-sm font-semibold text-neutral-200 transition-colors hover:bg-white/10"
+          >
             Skip this load
-          </Button>
-          <Button fullWidth onClick={() => onAccept(offer.id)}>
+          </button>
+          <button
+            type="button"
+            onClick={() => onAccept(offer.id)}
+            className="w-full rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white shadow-glow transition-colors hover:bg-brand-500"
+          >
             Accept load
-          </Button>
+          </button>
         </div>
+
       </div>
     </article>
   );
@@ -140,33 +154,35 @@ function Appointment({
   tone: 'pickup' | 'delivery';
 }) {
   return (
-    <div className="rounded-2xl border border-neutral-200 p-3">
+    <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
       <div className="flex items-center gap-2">
         <span
           aria-hidden
           className={cn(
             'flex h-6 w-6 items-center justify-center rounded-full text-white',
-            tone === 'pickup' ? 'bg-brand-600' : 'bg-navy-900',
+            tone === 'pickup' ? 'bg-brand-600' : 'bg-brand-400/30',
           )}
         >
           <PinIcon className="h-3.5 w-3.5" />
         </span>
-        <span className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
+        <span className="text-xs font-semibold uppercase tracking-wide text-neutral-400">
           {label}
         </span>
       </div>
-      <p className="mt-1.5 truncate text-sm font-semibold text-navy-900">{place}</p>
-      <p className="text-sm text-neutral-600">{when}</p>
+      <p className="mt-1.5 truncate text-sm font-semibold text-white">{place}</p>
+      <p className="text-sm text-neutral-400">{when}</p>
     </div>
+
   );
 }
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <dt className="text-xs font-medium uppercase tracking-wide text-neutral-500">{label}</dt>
-      <dd className="mt-0.5 truncate text-sm font-semibold text-navy-900">{value}</dd>
+      <dt className="text-xs font-medium uppercase tracking-wide text-neutral-400">{label}</dt>
+      <dd className="mt-0.5 truncate text-sm font-semibold text-white">{value}</dd>
     </div>
+
   );
 }
 

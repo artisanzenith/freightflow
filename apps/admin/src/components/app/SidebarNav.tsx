@@ -43,7 +43,7 @@ export function SidebarNav({ role, onNavigate }: SidebarNavProps) {
 
         return (
           <div key={group.key} className="space-y-1">
-            <p className="px-3 text-xs font-semibold uppercase tracking-wide text-neutral-400">
+            <p className="px-3 text-xs font-semibold uppercase tracking-wide text-neutral-500">
               {group.label}
             </p>
             {groupItems.map((item) => {
@@ -57,8 +57,8 @@ export function SidebarNav({ role, onNavigate }: SidebarNavProps) {
                   className={cn(
                     'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                     active
-                      ? 'bg-brand-50 text-brand-700'
-                      : 'text-neutral-600 hover:bg-neutral-100 hover:text-navy-900',
+                      ? 'bg-brand-500/15 text-brand-200 ring-1 ring-inset ring-brand-400/30'
+                      : 'text-neutral-300 hover:bg-white/5 hover:text-white',
                   )}
                 >
                   <NavIcon icon={item.icon} className="h-5 w-5 shrink-0" />
